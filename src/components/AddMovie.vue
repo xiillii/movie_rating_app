@@ -3,8 +3,9 @@
     <v-text-field label="Movie Name" v-model="name" :rules="nameRules" required></v-text-field>
     <v-text-field name="input-7-1" label="Movie Description" v-model="description"
                   multi-line></v-text-field>
-    <v-select label="Movie Release Year" v-model="release_year" :items="years"></v-select>
-    <v-text-field label="Movie Genre" v-model="genre"></v-text-field>
+    <v-select label="Movie Release Year" v-model="release_year" :items="years"
+    required :rules="releaseRules"></v-select>
+    <v-text-field label="Movie Genre" v-model="genre" required :rules="genreRules"></v-text-field>
     <v-btn @click="submit" :disabled="!valid">
       Submit
     </v-btn>
@@ -24,12 +25,34 @@ export default {
     nameRules: [
       v => !!v || 'Movie name is required',
     ],
+    genreRules: [
+      v => !!v || 'Movie genre year is required',
+      v => (v && v.length <= 80) || 'Genre must be less tan equal to 80 characters.',
+    ],
+    releaseRules: [
+      v => !!v || 'Movie release year is required',
+    ],
     select: null,
     years: [
       '2018',
       '2017',
       '2016',
       '2015',
+      '2014',
+      '2013',
+      '2012',
+      '2011',
+      '2010',
+      '2009',
+      '2008',
+      '2007',
+      '2006',
+      '2005',
+      '2004',
+      '2003',
+      '2002',
+      '2001',
+      '2000',
     ],
   }),
   methods: {
@@ -49,10 +72,21 @@ export default {
           },
         })
           .then(() => {
+            this.$swal(
+              'Great!',
+              'Movie added successfully!',
+              'success',
+            );
             this.$router.push({ name: 'Home' });
             this.$refs.form.reset();
           })
-          .catch(() => {});
+          .catch(() => {
+            this.$swal(
+              'Oh oo!',
+              'Could not add the movie!',
+              'error',
+            );
+          });
       }
       return true;
     },

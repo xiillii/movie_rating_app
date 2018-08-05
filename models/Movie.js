@@ -1,4 +1,4 @@
-const  mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 const MovieSchema = new Schema({
@@ -8,5 +8,5 @@ const MovieSchema = new Schema({
   genre: String,
 });
 
-const Movie = mongoose.model('Movie', MovieSchema)
+const Movie = mongoose.model('Movie', MovieSchema);
 module.exports = Movie;
